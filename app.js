@@ -1,10 +1,13 @@
 var express = require("express");
+var cors = require("cors"); // Import the cors package
 var app = express();
+
+
 var http = require("http").Server(app);
 var io = require("socket.io")(http, {
-    cors: {
-        origin: ['*']
-    }
+	cors: {
+		origin: '*'
+	}
 });
 
 // socket connection
@@ -15,7 +18,6 @@ io.on('connection', (socket) => {
 		console.log("message: ", msg);
 		socket.broadcast.emit('msg', msg);
 	});
-
 });
 
 const PORT = process.env.PORT || 8000;
